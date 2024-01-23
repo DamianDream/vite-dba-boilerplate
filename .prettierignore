@@ -1,0 +1,22 @@
+# Folders
+node_modules/
+dist/
+public/
+
+# Standalone files
+vite.config.js
+.gitignore
+# Style
+postcss.config.js
+tailwind.config.js
+# Package
+package-lock.json
+package.json
+
+# Linters
+.prettierrc
+.prettierignore
+
+# Variables
+*.env
+.env
