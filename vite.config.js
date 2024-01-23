@@ -4,9 +4,16 @@ import { resolve } from 'path'
 import glob from 'fast-glob'
 import { fileURLToPath } from 'url'
 import handlebars from 'vite-plugin-handlebars'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import imagemin from 'imagemin'
+import imageminWebp from 'imagemin-webp'
+
 
 export default defineConfig({
-    base: './',
+
+    base: '/vite-dba-boilerplate/',
+    // base: './',
+
     resolve: {
 		alias: {
 			"@": resolve(__dirname, './src/assets')
@@ -21,10 +28,6 @@ export default defineConfig({
     css: {
         devSourcemap: true,
     },
-    esbuild: {
-		jsxFactory: 'create',
-		jsxInject: 'import { create } from "/src/components/utils/jsxCreate.js"'
-	},
     build: {
         rollupOptions: {
           input: Object.fromEntries(
@@ -36,10 +39,27 @@ export default defineConfig({
         },
       },
     plugins: [
+        ViteImageOptimizer({
+            png: {
+				quality: 70,
+			},
+			jpeg: {
+				quality: 70,
+			},
+			jpg: {
+				quality: 70,
+			},
+        }),
+        {
+			...imagemin(['./src/assets/images/**/*.{jpg,png,jpeg}'], {
+				destination: './src/assets/images/',
+				plugins: [
+					imageminWebp({ quality: 70 })
+				]
+			}),
+			apply: 'serve',
+		},
         handlebars({
-            // context(pagePath) {
-            //     return pageData[pagePath]
-            // },
             partialDirectory: resolve(__dirname, 'partials'),
         }),
     ],
