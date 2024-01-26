@@ -38,15 +38,15 @@ This template uses the following dependencies:
 - **[vite-plugin-image-optimizer](https://github.com/FatehAK/vite-plugin-image-optimizer):** Image optimization (png, jpeg, gif, tiff, webp, avif). 
         <br>*Note: Dependencies for plugin above: "svgo" and "sharp"*
 - **[imagemin-webp](https://www.npmjs.com/package/imagemin-webp):** Converts formats such as .png/.jpg etc to .webp format
-- **[imagemin](link):** Description
-- **[cssnano](link):** Description
-- **[fast-glob](link):** Description
-- **[postcss](link):** Description
-- **[sass](link):** Description
-- **[tailwindcss](link):** Description
-- **[vite-plugin-handlebars](link):** Description
-- **[name](link):** Description
-- **[name](link):** Description
+- **[imagemin](link):** 
+- **[cssnano](link):** 
+- **[fast-glob](link):** 
+- **[postcss](link):** 
+- **[sass](link):** 
+- **[tailwindcss](link):** 
+- **[vite-plugin-handlebars](link):** 
+- **[name](link):** 
+- **[name](link):** 
 
 ## Starting
 
