@@ -1,21 +1,3 @@
-#### GitHub Pages configuration
-
-<!-- 
-  --- code for vite.config ---
-
-  repository is at https://github.com/<USERNAME>/<REPO>
-  base: '/vite-boilerplate-js/',
-  
- -->
-
-Pages -> GitHub Actions -> Create your own
-
-Copy all code from respective link from Vite:
-[Deploying a Static Site | Vite](https://vitejs.dev/guide/static-deploy.html#github-pages)
-
-create file name `deploy.yml`
-
-```yml
 # Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
@@ -67,4 +49,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-```

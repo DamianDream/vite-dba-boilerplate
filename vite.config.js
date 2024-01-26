@@ -8,27 +8,37 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import imagemin from 'imagemin'
 import imageminWebp from 'imagemin-webp'
 
+const root = resolve(__dirname, 'src')
+const outDir = resolve(__dirname, 'dist')
 
 export default defineConfig({
+    // --- ENV
+    envPrefix: 'APP_',
 
-    base: '/vite-dba-boilerplate/',
-    // base: './',
+    base: './',
+    // base: '/vite-dba-boilerplate/',
 
+    // --- Path aliases
     resolve: {
 		alias: {
 			"@": resolve(__dirname, './src/assets')
 		}
 	},
+
+    // --- Server Configuration
     server: {
         port: '5000',
     },
     preview: {
         port: '5001',
     },
+
     css: {
         devSourcemap: true,
     },
+
     build: {
+        emptyOutDir: true,
         rollupOptions: {
           input: Object.fromEntries(
                     glob.sync(['./*.html', './pages/**/*.html']).map(file => [
@@ -37,9 +47,12 @@ export default defineConfig({
                     ])
                 )
         },
-      },
+    },
+
+    // --- Plugins
     plugins: [
         ViteImageOptimizer({
+            // https://github.com/FatehAK/vite-plugin-image-optimizer
             png: {
 				quality: 70,
 			},
@@ -49,7 +62,17 @@ export default defineConfig({
 			jpg: {
 				quality: 70,
 			},
+            webp: {
+                lossless: true,
+            },
+            avif: {
+            lossless: true,
+            },
+            cache: false,
+            cacheLocation: undefined,
         }),
+
+        // --- Plugin for image optimization
         {
 			...imagemin(['./src/assets/images/**/*.{jpg,png,jpeg}'], {
 				destination: './src/assets/images/',
@@ -59,11 +82,12 @@ export default defineConfig({
 			}),
 			apply: 'serve',
 		},
+
+        // Plugin for partial import in to HTML
         handlebars({
             partialDirectory: resolve(__dirname, 'partials'),
         }),
-    ],
-    envPrefix: 'APP_',
+    ]
 })
 
     

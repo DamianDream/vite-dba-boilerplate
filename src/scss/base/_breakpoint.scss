@@ -1,0 +1,20 @@
+$layout-breakpoint-sm: 576px;
+$layout-breakpoint-md: 768px;
+$layout-breakpoint-lg: 992px;
+$layout-breakpoint-xl: 1200px;
+$layout-breakpoint-xxl: 1400px;
+
+/* Extra small devices (phones, 576px and down) */
+//@media only screen and (max-width: $layout-breakpoint-sm) {...}
+
+/* Small devices (portrait tablets and large phones, 576px and up) */
+//@media only screen and (min-width: $layout-breakpoint-sm) {...}
+
+/* Medium devices (landscape tablets, 768px and up) */
+//@media only screen and (min-width: $layout-breakpoint-md) {...}
+
+/* Large devices (laptops/desktops, 992px and up) */
+//@media only screen and (min-width: $layout-breakpoint-lg) {...}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+//@media only screen and (min-width: $layout-breakpoint-xl) {...}
