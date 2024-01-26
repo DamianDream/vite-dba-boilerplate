@@ -1,4 +1,11 @@
 # DBA Boilerplate for Vite markup template
+Current version: 1.0.0 (beta)
+
+### For whom and what purpose will this template may be useful: 
+- HTML, CSS, SCSS, Tailwind, JavaScript learning and practice 
+- "Vite" learning and practice 
+- Simple landing pages, Portfolio etc. creation and development
+- Single and Multi Page project
 
 Key features of this template:
 
@@ -9,6 +16,11 @@ Key features of this template:
 **Styles**: SCSS, Tailwind CSS
 <br>
 **Reset**: for SCSS development I use CSS Reset from here:  [The New CSS Reset](https://elad2412.github.io/the-new-css-reset/)
+
+Why it unique template:<br>
+- **Multilingual**<br>
+- **Telegram notification**<br>
+- **Partial HTML Injection**<br>
 
 **!Important:** In this project I configure SCSS and Tailwind CSS and you can choose what to use in your project. In case you choose SCSS you need to remove Tailwind imports from scss files: <br> 
 - <span style="color:#06b6d4">@tailwind base;<span>
@@ -24,8 +36,17 @@ This template uses the following dependencies:
 - **[Vite](https://vitejs.dev/):** A next-generation frontend build tool that offers a fast dev server and optimized builds.
 - **[autoprefixer](https://www.npmjs.com/package/autoprefixer):** Autoprefixer automatically adds vendor prefixes to CSS.
 - **[vite-plugin-image-optimizer](https://github.com/FatehAK/vite-plugin-image-optimizer):** Image optimization (png, jpeg, gif, tiff, webp, avif). 
+        <br>*Note: Dependencies for plugin above: "svgo" and "sharp"*
 - **[imagemin-webp](https://www.npmjs.com/package/imagemin-webp):** Converts formats such as .png/.jpg etc to .webp format
-<!-- - **[name](link):** Description -->
+- **[imagemin](link):** Description
+- **[cssnano](link):** Description
+- **[fast-glob](link):** Description
+- **[postcss](link):** Description
+- **[sass](link):** Description
+- **[tailwindcss](link):** Description
+- **[vite-plugin-handlebars](link):** Description
+- **[name](link):** Description
+- **[name](link):** Description
 
 ## Starting
 
@@ -90,9 +111,12 @@ tailwind.config.js
 │   ├── favicon	            # Folder for your web page favicon 
 │   ├── images                 # Folder for your public images
 ├── src                     # Source code
-│   ├── fonts	            # Folder for your fonts
-│   ├── img                 # Folder for your images
+│   ├── assets	            # Folder for you assets (fonts, images, etc...)
+|   │    ├── fonts	            # Folder for your fonts
+|   │    ├── images                 # Folder for your images
+|   ├── components	        # Folder for your components
 │   ├── js                  # Javascript files of your project
+│   ├── partials                  # HTML Partials files of your project
 │   ├── scss                # SCSS styles for your project
 ├── .gitignore              # Files and folders to be ignored by Git
 ├── .prettierrc              # Prettier configuration file
@@ -107,6 +131,47 @@ tailwind.config.js
 ├── vite.config.js          # Configuration for Vite
 ```
 
+## Partial HTML inject
+
+Folder for your partials files location showed below: 
+```plaintext
+├── src                     # Source code
+│   ├── partials                  # HTML Partials files of your project
+```
+
+ Create the `.html` file and inject it to your pages using special syntax {{> FILE_NAME }}
+```html
+<main>
+    {{> FILE_NAME }}
+</main>
+```
+
+## Fonts
+<!-- TODO: Fonts description-->
+
+## Tests
+<!-- TODO: Tests description-->
+
+## GitHub Pages
+<!-- TODO: GitHub Pages description-->
+
 ## License
 
 This template was created under the [MIT License](LICENSE).
+
+> ### “If, at first, you do not succeed, call it version 1.0.”
+> _― Khayri R.R. Woulfe_
+
+P.S. I knew that my template is overkill for one base template ;) but youse it as you like!
+My next template will be Vite Typescript, Vite React, ASTRO.
+
+Follow me on socials below:
+
+### mySocials
+<p align="left">
+<a href="https://linkedin.com/in/batalshykov-dima" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="batalshykov-dima" height="30" width="40" /></a>
+<a href="https://fb.com/dima.batalschykov" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="dima.batalschykov" height="30" width="40" /></a>
+<a href="https://instagram.com/it_immigrant_" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="it_immigrant_" height="30" width="40" /></a>
+</p>
+
+P.P.S. Do not buy me a coffee, rather just add me to friends !)
