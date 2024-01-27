@@ -21,6 +21,7 @@ Why it unique template:<br>
 - **Multilingual**<br>
 - **Telegram notification**<br>
 - **Partial HTML Injection**<br>
+- **Sourcemap** Scripts & Styles sourcemap build only for in Production Mode<br>
 
 **!Important:** In this project I configure SCSS and Tailwind CSS and you can choose what to use in your project. In case you choose SCSS you need to remove Tailwind imports from scss files: <br> 
 - <span style="color:#06b6d4">@tailwind base;<span>
@@ -46,7 +47,7 @@ This template uses the following dependencies:
 - **[tailwindcss](link):** 
 - **[vite-plugin-handlebars](link):** 
 - **[name](link):** 
-- **[name](link):** 
+- **[vite-plugin-webfont-dl](https://github.com/feat-agency/vite-plugin-webfont-dl?tab=readme-ov-file#supported-webfont-providers):** - Automatically download and adds fonts (locally) to html file.
 
 ## Starting
 
@@ -147,7 +148,36 @@ Folder for your partials files location showed below:
 ```
 
 ## Fonts
-<!-- TODO: Fonts description-->
+*Automatically downloads and injects fonts from the **configured webfont CSS URL(s)**.*
+
+1. Select your font families in your [webfont provider](#supported-webfont-providers) *(e.g. [Google Fonts](https://fonts.google.com))* and copy the **CSS URL**(s) from the ***"Use on the web"*** code block:
+
+	```html
+	<link href="[CSS URL]" rel="stylesheet">
+	```
+
+2. Add **`webfontDownload`** to your Vite plugins via predefine array with the selected Google Fonts **CSS URL**(s):
+	```js
+	// vite.config.js
+
+	import webfontDownload from 'vite-plugin-webfont-dl';
+
+    const customFonts = [
+        'https://fonts.googleapis.com/css2?family=Roboto&display=swap'
+    ]
+
+	export default {
+	  plugins: [ 
+        webfontDownload(customFonts),
+         ],
+	};
+	```
+
+    ### Supported webfont providers <span name="supported-webfont-providers"></span>
+- **[Google Fonts](https://fonts.google.com)**
+- **[Bunny Fonts](https://bunny.net/fonts/)**
+- **[Fontshare](https://www.fontshare.com)**
+<br>
 
 ## Tests
 <!-- TODO: Tests description-->

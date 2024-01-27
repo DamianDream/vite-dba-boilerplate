@@ -50,6 +50,7 @@ table {
 
 /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
 input, textarea {
+    user-select: auto;
     -webkit-user-select: auto;
 }
 
@@ -88,8 +89,10 @@ meter {
     -moz-user-modify: read-write;
     -webkit-user-modify: read-write;
     overflow-wrap: break-word;
-    -webkit-line-break: after-white-space;
-    -webkit-user-select: auto;
+	line-break: after-white-space;
+	-webkit-line-break: after-white-space;
+	user-select: auto;
+	-webkit-user-select: auto;
 }
 
 /* apply back the draggable feature - exist only in Chromium and Safari */
@@ -106,4 +109,8 @@ meter {
 /* Remove details summary webkit styles */
 ::-webkit-details-marker {
     display: none;
+}
+
+h2 {
+    color: red;
 }

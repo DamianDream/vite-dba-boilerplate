@@ -1,131 +1,109 @@
 import { defineConfig, loadEnv } from 'vite'
-// import path from 'path'
 import { resolve, relative, extname } from 'path'
 import glob from 'fast-glob'
 import { fileURLToPath } from 'url'
 import handlebars from 'vite-plugin-handlebars'
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 import imagemin from 'imagemin'
 import imageminWebp from 'imagemin-webp'
+import webfontDownload from 'vite-plugin-webfont-dl'
 
+// ------------ Fast Dev Config 
+
+//  ? Build for GitHub Pages ?
+const gitHubPages = false
+const gitHubPagesRepository = "/vite-boilerplate-js/"
+// repository is at https://github.com/<USERNAME>/<REPO>
+// f publish on github-pages we should indicate Repository name <REPO>
+
+//  ? Build for local server ?
+const outputToLocalServer = false
+
+// Path to output "dist" folder (bundle) and Server (for example XAMPP) dir
+const pathAliases = {
+    projectDir: resolve(__dirname, 'dist'),
+    xamppDir: resolve('/Applications/XAMPP/xamppfiles/htdocs/sites/vite/')
+}
+
+//  --- Fonts
+// Add fonts  below with the selected Google Fonts CSS URL(s)
+const customFonts = [
+    'https://fonts.googleapis.com/css2?family=Roboto&display=swap'
+]
+// Note: to use this fonts workflow  custom fonts in HTML head you inject <link href="[CSS URL]" rel="stylesheet">
+
+// ------------
 
 export default defineConfig(({ command, mode }) => {
+    const isProduction = mode === 'production'
+    const isDevelopment = mode === 'development'
 
-    // get all available env data variables (OPTIONAL)
-    const env = loadEnv("mock", process.cwd(), "");
+    //  --- Root Dir ---
+    const root = resolve(__dirname, './');
 
-    // Reduce below return object with all env variables (uncomment code bellow)
+    //  --- Output Dir ---
+    const outFolderDir = (outputToLocalServer) ? pathAliases.xamppDir : pathAliases.projectDir;
 
-    // const processEnvValues = {
-    //     "process.env": Object.entries(env).reduce((prev, [key, val]) => {
-    //     return {
-    //         ...prev,
-    //         [key]: val,
-    //     };
-    //     }, {}),
-    // };
-
-    // --- EXAMPLE (How to recall env variable)
-    // Return specific env variable by Name
-    // const APP_API_URL = JSON.stringify(env.APP_XAMPPTEST)
-
-    // Path to output "dist" folder (bundle)
-    const pathAliases = {
-        projectDir: resolve(__dirname, 'dist'),
-        // Path to localhost server folder
-        xamppDir: resolve('/Applications/XAMPP/xamppfiles/htdocs/sites/vite/')
-    }
-
-    const outFolderDir = (false) ? pathAliases.projectDir : pathAliases.xamppDir;
-
-    //  --- GithubPages
-    const gitHubRepoName = JSON.stringify(env.APP_VITE_BASE)
-    const compileForGitHubPages  = (false) ? gitHubRepoName : './';
-
-    console.log(compileForGitHubPages)
+    //  --- Github Pages ---
+    const configureBaseProjectPath  = (gitHubPages) ? gitHubPagesRepository : './';
 
     return {
-        // --- ENV
+        root,
         envPrefix: 'APP_',
-
-        // Environment path
-        base: compileForGitHubPages,
-
-        // --- Path aliases
+        base: configureBaseProjectPath,
         resolve: {
             alias: {
                 "@": resolve(__dirname, './src/assets'),
                 "@fonts": resolve(__dirname, './src/assets/fonts/'),
+                "@img": resolve(__dirname, './src/assets/images/'),
             }
         },
 
         // --- Server Configuration
-        server: {
-            // for dev
-            port: '5000',
-        },
-        preview: {
-            // for build and preview
-            // Note "Preview mode" may be different from the server environment!  
-            // Suggest to try XAMPP server or similar for testing.
-            port: '5001',
-        },
-
+        server: { port: '5000'},
+        // Note "Preview mode" may be different from the server environment!  
+        // Suggest to try XAMPP server or similar for testing.
+        preview: { port: '5001' },
         css: {
-            devSourcemap: true,
+            devSourcemap: isDevelopment,
         },
-
         build: {
-            outDir: outFolderDir,
+            minify: isProduction,
+            cssMinify: isProduction,
+            sourcemap: isDevelopment,
             emptyOutDir: true,
-
-            // Collect all pages from all indicated folders
-            //  No need to indicate it separately
+            outDir: outFolderDir,
             rollupOptions: {
-            input: Object.fromEntries(
-                        glob.sync(['./*.html', './pages/**/*.html']).map(file => [
-                            relative(__dirname, file.slice(0, file.length - extname(file).length)),
-                            fileURLToPath(new URL(file, import.meta.url))
-                        ])
-                    )
+
+                // Collect all pages from all indicated folders
+                input: Object.fromEntries(
+                    glob.sync(['./*.html', './pages/**/*.html']).map(file => [
+                        relative(__dirname, file.slice(0, file.length - extname(file).length)),
+                        fileURLToPath(new URL(file, import.meta.url))
+                    ])
+                )
             },
         },
 
         // --- Plugins
         plugins: [
+            webfontDownload( customFonts ),
             ViteImageOptimizer({
-                // https://github.com/FatehAK/vite-plugin-image-optimizer
-                png: {
-                    quality: 70,
-                },
-                jpeg: {
-                    quality: 70,
-                },
-                jpg: {
-                    quality: 70,
-                },
-                webp: {
-                    lossless: true,
-                },
-                avif: {
-                lossless: true,
-                },
+                png: { quality: 70 },
+                jpeg: { quality: 70 },
+                jpg: { quality: 70 },
+                webp: { lossless: true },
+                avif: { lossless: true },
                 cache: false,
                 cacheLocation: undefined,
             }),
-
-            // --- Plugin for image optimization
             {
                 ...imagemin(['./src/assets/images/**/*.{jpg,png,jpeg}'], {
                     destination: './src/assets/images/',
-                    plugins: [
-                        imageminWebp({ quality: 70 })
-                    ]
+                    plugins: [ imageminWebp({ quality: 70 }) ]
                 }),
                 apply: 'serve',
             },
-
-            // Plugin for partial import in to HTML
             handlebars({
                 partialDirectory: resolve(__dirname, 'src/partials'),
             }),
