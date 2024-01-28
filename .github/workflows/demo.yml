@@ -4,6 +4,6 @@ on:
 jobs:
   print:
     runs-on: ubuntu-latest
-    step:
+    steps:
       - name: Print to console
         run: echo Hello GH Actions!
