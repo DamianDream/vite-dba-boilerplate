@@ -10,4 +10,5 @@ import '../scss/style.scss'
 
 document.getElementById('image').src = javascriptLogo
 
-console.log("TEST");
+console.log(import.meta.env);
+

@@ -1,4 +1,4 @@
-# DBA Boilerplate for Vite markup template
+# DBA Boilerplate Vite for Create Landings and MPA 
 Current version: 1.0.0 (beta)
 
 ### For whom and what purpose will this template may be useful: 
