@@ -125,32 +125,32 @@ This is the structure of the project:
 tailwind.config.js
 
 ```plaintext
-├── .github           # GitHub Actions folder
-│   ├── workflows	            # Folder for your github workflows
-|   │    ├── deployGitHubPage.yml	            # Action for deploy Vite project via GitHubPages
+├── .github           		# GitHub Actions folder
+│   ├── workflows	        # Folder for github workflows
+|   │    ├── deployGitHubPage.yml	            # Action file
 ├── node_modules            # Node.js dependencies for the project.
 ├── pages                   # Folder for additional .html pages
 ├── public                  # Public assets and resources
 │   ├── favicon	            # Folder for your web page favicon 
-│   ├── images                 # Folder for your public images
+│   ├── images           	# Folder for your public images
 ├── src                     # Source code
 │   ├── assets	            # Folder for you assets (fonts, images, etc...)
-|   │    ├── fonts	            # Folder for your fonts
-|   │    ├── images                 # Folder for your images
+|   │    ├── fonts	       	# Folder for your fonts
+|   │    ├── images       	# Folder for your images
 |   ├── components	        # Folder for your components
 │   ├── js                  # Javascript files of your project
-│   ├── partials                  # HTML Partials files of your project
+│   ├── partials        	# HTML Partials files of your project
 │   ├── scss                # SCSS styles for your project
 ├── .gitignore              # Files and folders to be ignored by Git
-├── .prettierrc              # Prettier configuration file
-├── .prettierignore              # Files and folders to be ignored by Prettier
+├── .prettierrc            	# Prettier configuration file
+├── .prettierignore      	# Files and folders to be ignored by Prettier
 ├── index.html              # The HTML file for your project
 ├── LICENSE                 # The license for your project
 ├── package-lock.json       # Lockfile for your project's dependencies
 ├── package.json            # Defines your project and its dependencies
 ├── postcss.config.cjs      # Configuration for PostCSS
 ├── README.md               # This file
-├── tailwind.config.js          # Configuration for Tailwind CSS
+├── tailwind.config.js    	# Configuration for Tailwind CSS
 ├── vite.config.js          # Configuration for Vite
 ```
 
@@ -210,7 +210,7 @@ in the `deployGitHubPage.yml` file you can set action to trigger workflow on pus
 
 Please follow thous steps to deploy your project via GitHub Pages Automatically:
 1. Create GitHub Private Access Token - [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
->PAT Config for Workflow actions:
+>IMPORTANT! PAT Config for Workflow actions:
 > Below you can find the list of privileges you should enable whet create PAT:
 > - repo
 > - workflow
@@ -227,6 +227,7 @@ URL: `https://[TOKEN]` + `[@]` + `github.com/[YOUR_ACCOUNT]/[REPOSITORY_NAME]`
 ```bush
 git remote set-url origin https://jsg_dfjsdlfkhdlfhjdlgjdj37209gsdfbslnbcsajfnsa@github.com/my_github_name/repository_name.git
 ```
+Note: There are [VS Code extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions) to integrate with GitHub Actions.
 
 ## License
 
