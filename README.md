@@ -84,7 +84,6 @@ cd your-project-name
 npm install
 ```
 
-
 ## Further steps
 
 After cloning the template, make sure to clean up and update the following:
@@ -126,6 +125,9 @@ This is the structure of the project:
 tailwind.config.js
 
 ```plaintext
+├── .github           # GitHub Actions folder
+│   ├── workflows	            # Folder for your github workflows
+|   │    ├── deployGitHubPage.yml	            # Action for deploy Vite project via GitHubPages
 ├── node_modules            # Node.js dependencies for the project.
 ├── pages                   # Folder for additional .html pages
 ├── public                  # Public assets and resources
@@ -203,7 +205,28 @@ Folder for your partials files location showed below:
 <!-- TODO: Tests description-->
 
 ## GitHub Pages
-<!-- TODO: GitHub Pages description-->
+For this template you can use GitHub Pages to deploy your project.
+in the `deployGitHubPage.yml` file you can set action to trigger workflow on push to the `demo` branch or manually.
+
+Please follow thous steps to deploy your project via GitHub Pages Automatically:
+1. Create GitHub Private Access Token - [PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+>PAT Config for Workflow actions:
+> Below you can find the list of privileges you should enable whet create PAT:
+> - repo
+> - workflow
+> - write
+> - delete
+> - admin:org 
+> - admin:public_key 
+
+2. Set up remote URL for your project repository: <br>
+Example of URL pattern:
+Git command: `git remote set-url origin`
+URL: `https://[TOKEN]` + `[@]` + `github.com/[YOUR_ACCOUNT]/[REPOSITORY_NAME]`
+
+```bush
+git remote set-url origin https://jsg_dfjsdlfkhdlfhjdlgjdj37209gsdfbslnbcsajfnsa@github.com/my_github_name/repository_name.git
+```
 
 ## License
 
