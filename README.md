@@ -45,9 +45,29 @@ This template uses the following dependencies:
 - **[postcss](link):** 
 - **[sass](link):** 
 - **[tailwindcss](link):** 
-- **[vite-plugin-handlebars](link):** 
-- **[name](link):** 
+- **[vite-plugin-handlebars](https://www.npmjs.com/package/vite-plugin-handlebars):** 
+- **[vite-plugin-remove-console](https://github.com/xiaoxian521/vite-plugin-remove-console):** 
+- **[vite-plugin-static-copy](https://github.com/sapphi-red/vite-plugin-static-copy/tree/main):** 
 - **[vite-plugin-webfont-dl](https://github.com/feat-agency/vite-plugin-webfont-dl?tab=readme-ov-file#supported-webfont-providers):** - Automatically download and adds fonts (locally) to html file.
+
+## Before starting
+
+> [!WARNING]
+>
+> If you are using Windows, make sure to use `normalizePath` after doing `path.resolve` / `resolve` or else.
+> `\` is a escape charactor in `fast-glob` and you should use `/`.
+>
+> ```js
+> import { normalizePath } from 'vite'
+> import path from 'node:path'
+>
+> normalizePath(path.resolve(__dirname, './foo')) // C:/project/foo
+>
+> // instead of
+> path.resolve(__dirname, './foo') // C:\project\foo
+> ```
+>
+> See [`fast-glob` documentation about this](https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows) for more details.
 
 ## Starting
 

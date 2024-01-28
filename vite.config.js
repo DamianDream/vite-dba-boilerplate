@@ -7,6 +7,8 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 import imagemin from 'imagemin'
 import imageminWebp from 'imagemin-webp'
 import webfontDownload from 'vite-plugin-webfont-dl'
+import removeConsole from "vite-plugin-remove-console"
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // ------------ Fast Dev Config 
 
@@ -16,11 +18,13 @@ const gitHubPagesRepository = "/vite-boilerplate-js/"
 // repository is at https://github.com/<USERNAME>/<REPO>
 // f publish on github-pages we should indicate Repository name <REPO>
 
-//  ? Build for local server ?
+//  ? Build for local server test ?
 const outputToLocalServer = false
+//  ? Remove consoles ?
+const rmConsoleLogs = false
 
-// Path to output "dist" folder (bundle) and Server (for example XAMPP) dir
 const pathAliases = {
+    root: resolve(__dirname, './'),
     projectDir: resolve(__dirname, 'dist'),
     xamppDir: resolve('/Applications/XAMPP/xamppfiles/htdocs/sites/vite/')
 }
@@ -34,36 +38,28 @@ const customFonts = [
 
 // ------------
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
     const isProduction = mode === 'production'
     const isDevelopment = mode === 'development'
 
-    //  --- Root Dir ---
-    const root = resolve(__dirname, './');
-
-    //  --- Output Dir ---
-    const outFolderDir = (outputToLocalServer) ? pathAliases.xamppDir : pathAliases.projectDir;
-
-    //  --- Github Pages ---
-    const configureBaseProjectPath  = (gitHubPages) ? gitHubPagesRepository : './';
-
     return {
-        root,
+        root: pathAliases.root,
         envPrefix: 'APP_',
-        base: configureBaseProjectPath,
+        base: gitHubPages ? gitHubPagesRepository : './',
         resolve: {
             alias: {
                 "@": resolve(__dirname, './src/assets'),
-                "@fonts": resolve(__dirname, './src/assets/fonts/'),
-                "@img": resolve(__dirname, './src/assets/images/'),
+                "@fonts": resolve(__dirname, './src/assets/fonts'),
+                "@img": resolve(__dirname, './src/assets/images'),
+                "@js": resolve(__dirname, './src/js'),
             }
         },
 
         // --- Server Configuration
         server: { port: '5000'},
-        // Note "Preview mode" may be different from the server environment!  
-        // Suggest to try XAMPP server or similar for testing.
         preview: { port: '5001' },
+
+         // --- Bundling
         css: {
             devSourcemap: isDevelopment,
         },
@@ -72,7 +68,7 @@ export default defineConfig(({ command, mode }) => {
             cssMinify: isProduction,
             sourcemap: isDevelopment,
             emptyOutDir: true,
-            outDir: outFolderDir,
+            outDir: pathAliases.projectDir,
             rollupOptions: {
 
                 // Collect all pages from all indicated folders
@@ -87,7 +83,9 @@ export default defineConfig(({ command, mode }) => {
 
         // --- Plugins
         plugins: [
-            webfontDownload( customFonts ),
+            //  Inject @font-family styles into HTML head
+            isProduction && webfontDownload( customFonts ),
+            // Images Workflow
             ViteImageOptimizer({
                 png: { quality: 70 },
                 jpeg: { quality: 70 },
@@ -104,9 +102,21 @@ export default defineConfig(({ command, mode }) => {
                 }),
                 apply: 'serve',
             },
+            //  Inject HTML partials
             handlebars({
                 partialDirectory: resolve(__dirname, 'src/partials'),
             }),
+            //  Copy files and folders
+            isProduction && outputToLocalServer && viteStaticCopy({
+                targets: [
+                  {
+                    src: pathAliases.projectDir,
+                    dest: pathAliases.xamppDir,
+                  }
+                ]
+            }),
+            // Probably remove consoles only for production )
+            rmConsoleLogs && removeConsole(),
         ]
     }
 })
