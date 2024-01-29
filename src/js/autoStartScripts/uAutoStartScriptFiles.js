@@ -10,7 +10,7 @@
 
 export const autoStartModules = () => {
 
-    const importStartModules = import.meta.glob('../autoStart/*.js', { eager: false });
+    const importStartModules = import.meta.glob('../autoStartScripts/*.js', { eager: false });
 
     Object.values(importStartModules).forEach(module => {
 

@@ -1,0 +1,8 @@
+	English	Russian	Ukrainian	Spanish
+item	en	ru	uk	es
+				
+global.tnx	Thank you!	Спасибо!	Дякую тобі!	¡Gracias!
+global.greeting	Hello	Привет	Привіт	Hola
+user.name	Name	Имя	Назва	Nombre
+user.surname	Last name	Фамилия	Прізвище	Apellido
+error.msg	Error	Ошибка	Помилка	Error

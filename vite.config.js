@@ -9,6 +9,7 @@ import imageminWebp from 'imagemin-webp'
 import webfontDownload from 'vite-plugin-webfont-dl'
 import removeConsole from "vite-plugin-remove-console"
 import { viteStaticCopy } from 'vite-plugin-static-copy'
+import dsv from '@rollup/plugin-dsv'
 
 // ------------ Fast Dev Config 
 
@@ -37,6 +38,7 @@ const customFonts = [
 // Note: to use this fonts workflow  custom fonts in HTML head you inject <link href="[CSS URL]" rel="stylesheet">
 
 // ------------
+
 
 export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
     const isProduction = mode === 'production'
@@ -117,6 +119,10 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => {
             }),
             // Probably remove consoles only for production )
             rmConsoleLogs && removeConsole(),
+
+            //  --- Rollup Plugins 
+            // Plugin to parse and convert CSV and TSV files
+            dsv(),
         ]
     }
 })

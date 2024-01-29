@@ -1,7 +1,9 @@
 import javascriptLogo from '@/images/javascript.svg' 
+import { parseTSV } from './localization/uLangConvertTSV.js'
+
+import '../scss/style.scss'
 
 console.log('Main script loaded');
-import '../scss/style.scss'
 
 // --- import from src dir
 
@@ -10,5 +12,4 @@ import '../scss/style.scss'
 
 document.getElementById('image').src = javascriptLogo
 
-console.log(import.meta.env);
-
+parseTSV()

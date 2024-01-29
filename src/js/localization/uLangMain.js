@@ -1,4 +1,4 @@
-import translate from './translate/language.json';
+// import translate from './translate/language.json';
 
 // HTML Sample for the buttons
 {/*    
