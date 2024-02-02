@@ -28,5 +28,8 @@
     "vite-plugin-remove-console": "^2.2.0",
     "vite-plugin-static-copy": "^1.0.1",
     "vite-plugin-webfont-dl": "^3.9.1"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5"
   }
 }
